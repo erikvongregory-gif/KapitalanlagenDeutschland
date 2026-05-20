@@ -1,11 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
 
-const LOGO = {
-  src: "/logo-kapitalanlagen-deutschland.png",
-  width: 1024,
-  height: 309,
-  alt: "Kapitalanlagen Deutschland",
+const MARK = {
+  src: "/logo-mark-house.png",
+  width: 500,
+  height: 500,
+  alt: "",
 } as const;
 
 type LogoProps = {
@@ -13,28 +13,45 @@ type LogoProps = {
   linked?: boolean;
 };
 
-export function Logo({ variant = "header", linked = true }: LogoProps) {
-  const img = (
-    <Image
-      src={LOGO.src}
-      alt={LOGO.alt}
-      width={LOGO.width}
-      height={LOGO.height}
-      className={`logo logo--${variant}`}
-      priority={variant === "header"}
-      sizes={variant === "header" ? "(max-width: 640px) 160px, 200px" : "240px"}
-    />
+function BrandContent({ variant }: { variant: "header" | "footer" }) {
+  return (
+    <>
+      <span className="mark mark--icon" aria-hidden>
+        <Image
+          src={MARK.src}
+          alt={MARK.alt}
+          width={MARK.width}
+          height={MARK.height}
+          className="mark__img"
+          priority={variant === "header"}
+        />
+      </span>
+      <span className="stack">
+        Kapitalanlagen
+        <small>Deutschland · Boutique-Mandat</small>
+      </span>
+    </>
   );
+}
 
-  if (!linked) return img;
+export function Logo({ variant = "header", linked = true }: LogoProps) {
+  const className = `brand brand--split brand--${variant}`;
+
+  if (!linked) {
+    return (
+      <div className={className} aria-label="Kapitalanlagen Deutschland">
+        <BrandContent variant={variant} />
+      </div>
+    );
+  }
 
   return (
     <Link
       href="#"
-      className={`brand brand--logo ${variant === "footer" ? "brand--logo-footer" : ""}`}
+      className={className}
       aria-label="Kapitalanlagen Deutschland — Startseite"
     >
-      {img}
+      <BrandContent variant={variant} />
     </Link>
   );
 }
