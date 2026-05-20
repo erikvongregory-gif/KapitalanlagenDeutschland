@@ -21,13 +21,12 @@ export function Impressions() {
         />
         <RevealStagger className="gallery">
           {IMPRESSIONS.map((tile) => (
-            <RevealItem key={tile.label}>
-              <div
-                className={`tile ${tile.className}`}
-                data-label={tile.label}
-              >
-                <span className="tag">{tile.tag}</span>
-              </div>
+            <RevealItem
+              key={tile.label}
+              className={`tile ${tile.className}`}
+              data-label={tile.label}
+            >
+              <span className="tag">{tile.tag}</span>
             </RevealItem>
           ))}
         </RevealStagger>
