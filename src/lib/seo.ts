@@ -1,11 +1,18 @@
 import type { Metadata } from "next";
 import { FAQ_ITEMS, SITE_URL } from "./data";
 
+const siteName = "Kapitalanlagen Deutschland";
+
 const title =
   "Kapitalanlagen Deutschland — Premium Immobilieninvestments in den besten Lagen";
 
 const description =
   "Strategischer Partner für dein Immobilieninvestment. Off-Market-Objekte, Finanzierung, Kaufabwicklung und Mietverwaltung — in Deutschlands stärksten Lagen. Jetzt kostenloses Expertengespräch sichern.";
+
+const ogTitle = "Kapitalanlagen Deutschland — Premium Immobilieninvestments";
+
+const ogDescription =
+  "Der strategische Partner für dein Immobilieninvestment. Von der Strategie bis zur Mietverwaltung — in Deutschlands besten Lagen.";
 
 const keywords = [
   "Kapitalanlage Immobilien",
@@ -20,44 +27,51 @@ const keywords = [
 
 export const siteMetadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title,
+  title: {
+    default: title,
+    template: `%s · ${siteName}`,
+  },
   description,
   keywords,
+  applicationName: siteName,
   authors: [{ name: "Kapitalanlagen Deutschland GmbH" }],
+  creator: "Kapitalanlagen Deutschland GmbH",
+  publisher: "Kapitalanlagen Deutschland GmbH",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
   robots: {
     index: true,
     follow: true,
-    "max-image-preview": "large",
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
   alternates: {
-    canonical: SITE_URL,
+    canonical: "/",
   },
   openGraph: {
     type: "website",
     locale: "de_DE",
-    url: SITE_URL,
-    siteName: "Kapitalanlagen Deutschland",
-    title: "Kapitalanlagen Deutschland — Premium Immobilieninvestments",
-    description:
-      "Der strategische Partner für dein Immobilieninvestment. Von der Strategie bis zur Mietverwaltung — in Deutschlands besten Lagen.",
-    images: [
-      {
-        url: "/logo-kapitalanlagen-deutschland.png",
-        width: 1024,
-        height: 309,
-        alt: "Kapitalanlagen Deutschland",
-      },
-    ],
+    url: "/",
+    siteName,
+    title: ogTitle,
+    description: ogDescription,
   },
   twitter: {
     card: "summary_large_image",
-    title: "Kapitalanlagen Deutschland — Premium Immobilieninvestments",
-    description:
-      "Der strategische Partner für dein Immobilieninvestment. Von der Strategie bis zur Mietverwaltung — in Deutschlands besten Lagen.",
+    title: ogTitle,
+    description: ogDescription,
   },
-  icons: {
-    icon: "/logo-kapitalanlagen-deutschland.png",
-    apple: "/logo-kapitalanlagen-deutschland.png",
+  category: "finance",
+  other: {
+    "theme-color": "#1f3a2e",
+    "apple-mobile-web-app-title": "Kapitalanlagen",
   },
 };
 
@@ -69,6 +83,7 @@ export function getRealEstateAgentJsonLd() {
     description:
       "Strategischer Partner für Immobilieninvestments in Deutschlands besten Lagen. Beratung, Off-Market-Akquise, Finanzierung, Kaufabwicklung und Mietverwaltung aus einer Hand.",
     url: SITE_URL,
+    image: `${SITE_URL}/opengraph-image`,
     areaServed: [
       { "@type": "Country", name: "Deutschland" },
       { "@type": "City", name: "München" },
