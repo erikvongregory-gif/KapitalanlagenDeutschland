@@ -1,26 +1,202 @@
 @import "tailwindcss";
+@import "./reference-styles.css";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --gold: #c5a059;
+  --gold-soft: #d6c69a;
+  --serif: var(--font-instrument-serif), "Times New Roman", serif;
+  --sans: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system,
+    "Helvetica Neue", Arial, sans-serif;
+  --mono: var(--font-geist-mono), ui-monospace, "SF Mono", Menlo, monospace;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+html {
+  scroll-behavior: smooth;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100;
+  padding: 12px 20px;
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+.skip-link:focus {
+  left: var(--gutter);
+  top: 12px;
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
+.brand--logo {
+  gap: 0;
+  font-size: inherit;
+}
+
+.logo {
+  display: block;
+  width: auto;
+  height: auto;
+}
+
+.logo--header {
+  height: 42px;
+  max-width: min(210px, 44vw);
+}
+
+.logo--footer {
+  height: 52px;
+  max-width: 240px;
+  margin-bottom: 4px;
+}
+
+.hero-visual--photo {
+  background: var(--ink);
+}
+
+.hero-visual--photo::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    135deg,
+    rgba(21, 19, 15, 0.05),
+    rgba(21, 19, 15, 0.28)
+  );
+  pointer-events: none;
+}
+
+.hero-visual--photo::after {
+  content: none;
+}
+
+.hero-visual__img {
+  object-fit: cover;
+  object-position: center 42%;
+}
+
+.hero-visual--photo .hero-badge {
+  z-index: 2;
+}
+
+/* Karte: pulsierende Stadt-Pins */
+.map-card {
+  overflow: visible;
+}
+
+.map-card .map-pins-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.map-card .map-pin {
+  position: absolute;
+  width: 11px;
+  height: 11px;
+  transform: translate(-50%, -50%);
+  background: none;
+  box-shadow: none;
+  cursor: default;
+}
+
+.map-card .map-pin::after {
+  content: none;
+}
+
+.map-pin__dot {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: var(--accent);
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  animation: map-pin-glow 2s ease-out infinite;
+  animation-delay: var(--pin-delay, 0s);
+}
+
+.map-pin__ring {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  border: 2px solid var(--accent);
+  background: transparent;
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 0.65;
+  animation: map-pin-ring 2s ease-out infinite;
+  animation-delay: var(--pin-delay, 0s);
+  z-index: 1;
+}
+
+.map-pin__ring--delayed {
+  animation-delay: calc(var(--pin-delay, 0s) + 1s);
+}
+
+.map-pin__label {
+  position: absolute;
+  left: 16px;
+  top: -6px;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--ink);
+  white-space: nowrap;
+  background: var(--bg);
+  padding: 3px 7px;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  z-index: 4;
+}
+
+@keyframes map-pin-glow {
+  0% {
+    box-shadow: 0 0 0 0 rgba(31, 58, 46, 0.55);
+  }
+  70% {
+    box-shadow: 0 0 0 14px rgba(31, 58, 46, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(31, 58, 46, 0);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@keyframes map-pin-ring {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.7;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(4);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .map-pin__dot,
+  .map-pin__ring {
+    animation: none;
+  }
+}
+
+.manifest-grid {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+@media (max-width: 1024px) {
+  .manifest-grid {
+    grid-template-columns: 1fr;
+  }
 }
