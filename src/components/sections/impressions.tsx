@@ -1,5 +1,6 @@
 import { IMPRESSIONS } from "@/lib/data";
 import { SectionHead } from "@/components/ui/section-head";
+import { RevealItem, RevealStagger } from "@/components/ui/reveal";
 
 export function Impressions() {
   return (
@@ -18,17 +19,18 @@ export function Impressions() {
           }
           meta="Eine Auswahl an Objekttypen und Lagen, die wir aktuell prüfen. Konkrete Objekte teilen wir ausschließlich im persönlichen Mandatsgespräch — aus Diskretion gegenüber Eigentümern."
         />
-        <div className="gallery">
+        <RevealStagger className="gallery">
           {IMPRESSIONS.map((tile) => (
-            <div
-              key={tile.label}
-              className={`tile ${tile.className}`}
-              data-label={tile.label}
-            >
-              <span className="tag">{tile.tag}</span>
-            </div>
+            <RevealItem key={tile.label}>
+              <div
+                className={`tile ${tile.className}`}
+                data-label={tile.label}
+              >
+                <span className="tag">{tile.tag}</span>
+              </div>
+            </RevealItem>
           ))}
-        </div>
+        </RevealStagger>
       </div>
     </section>
   );

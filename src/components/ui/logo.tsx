@@ -28,7 +28,7 @@ function BrandContent({ variant }: { variant: "header" | "footer" }) {
       </span>
       <span className="stack">
         Kapitalanlagen
-        <small>Deutschland · Boutique-Mandat</small>
+        <small>Deutschland</small>
       </span>
     </>
   );

@@ -1,5 +1,6 @@
 import { SERVICES } from "@/lib/data";
 import { SectionHead } from "@/components/ui/section-head";
+import { RevealItem, RevealStagger } from "@/components/ui/reveal";
 
 export function Services() {
   return (
@@ -14,20 +15,22 @@ export function Services() {
           }
           meta="Sechs Disziplinen, ein Team, eine Schnittstelle. Du sprichst mit einem Berater — dahinter arbeitet ein Netzwerk aus Maklern, Banken, Notaren, Hausverwaltern und Steuerexperten."
         />
-        <div className="service-grid">
+        <RevealStagger className="service-grid">
           {SERVICES.map((service) => (
-            <article key={service.index} className="service">
-              <span className="ix">{service.index}</span>
-              <div>
-                <h3 className="display">{service.title}</h3>
-                <p>{service.description}</p>
-              </div>
-              <span className="arr" aria-hidden>
-                →
-              </span>
-            </article>
+            <RevealItem key={service.index}>
+              <article className="service">
+                <span className="ix">{service.index}</span>
+                <div>
+                  <h3 className="display">{service.title}</h3>
+                  <p>{service.description}</p>
+                </div>
+                <span className="arr" aria-hidden>
+                  →
+                </span>
+              </article>
+            </RevealItem>
           ))}
-        </div>
+        </RevealStagger>
       </div>
     </section>
   );

@@ -1,5 +1,6 @@
 import { FAQ_ITEMS } from "@/lib/data";
 import { SectionHead } from "@/components/ui/section-head";
+import { RevealItem, RevealStagger } from "@/components/ui/reveal";
 
 export function FAQ() {
   return (
@@ -18,16 +19,18 @@ export function FAQ() {
           }
           meta="Die Fragen, die in fast jedem Erstgespräch kommen. Wenn deine nicht dabei ist — schreib uns einfach."
         />
-        <div className="faq-list">
+        <RevealStagger className="faq-list">
           {FAQ_ITEMS.map((item) => (
-            <details key={item.question}>
-              <summary>
-                {item.question} <span className="icn">+</span>
-              </summary>
-              <p>{item.answer}</p>
-            </details>
+            <RevealItem key={item.question}>
+              <details>
+                <summary>
+                  {item.question} <span className="icn">+</span>
+                </summary>
+                <p>{item.answer}</p>
+              </details>
+            </RevealItem>
           ))}
-        </div>
+        </RevealStagger>
       </div>
     </section>
   );

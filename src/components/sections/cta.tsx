@@ -2,8 +2,11 @@
 
 import { useState } from "react";
 import { CTA_BULLETS, EQUITY_OPTIONS } from "@/lib/data";
+import { Reveal } from "@/components/ui/reveal";
+import { useIsMobile } from "@/hooks/use-motion-preset";
 
 export function CTA() {
+  const isMobile = useIsMobile();
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">(
     "idle",
   );
@@ -40,7 +43,8 @@ export function CTA() {
     <section className="cta" id="kontakt" aria-label="Beratungsanfrage">
       <div className="wrap">
         <div className="cta-grid">
-          <div>
+          <Reveal direction={isMobile ? "up" : "left"}>
+            <div>
             <span
               className="eyebrow"
               style={{ color: "rgba(255,255,255,0.6)" }}
@@ -59,8 +63,10 @@ export function CTA() {
                 <li key={bullet}>{bullet}</li>
               ))}
             </ul>
-          </div>
+            </div>
+          </Reveal>
 
+          <Reveal direction={isMobile ? "up" : "right"} delay={isMobile ? 0.06 : 0.1}>
           <form className="cta-form" onSubmit={handleSubmit}>
             <h3>Termin sichern</h3>
             <p>Antwort innerhalb von 24 Stunden, Werktage.</p>
@@ -126,6 +132,7 @@ export function CTA() {
               Kontaktaufnahme gem. Datenschutzerklärung ein.
             </p>
           </form>
+          </Reveal>
         </div>
       </div>
     </section>

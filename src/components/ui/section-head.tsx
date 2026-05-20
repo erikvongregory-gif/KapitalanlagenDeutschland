@@ -1,3 +1,7 @@
+"use client";
+
+import { Reveal } from "@/components/ui/reveal";
+
 export function SectionHead({
   eyebrow,
   title,
@@ -9,7 +13,7 @@ export function SectionHead({
   dark?: boolean;
 }) {
   return (
-    <div className="section-head">
+    <Reveal className="section-head">
       <div>
         <span className="eyebrow">{eyebrow}</span>
         <h2 className="display" style={{ marginTop: 28 }}>
@@ -17,6 +21,6 @@ export function SectionHead({
         </h2>
       </div>
       <p className="head-meta">{meta}</p>
-    </div>
+    </Reveal>
   );
 }
