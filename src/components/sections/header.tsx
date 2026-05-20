@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { NAV_LINKS } from "@/lib/data";
 import { Logo } from "@/components/ui/logo";
 import { Reveal } from "@/components/ui/reveal";
+import { MobileNav } from "@/components/sections/mobile-nav";
 
 export function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -20,6 +21,15 @@ export function Header() {
     mq.addEventListener("change", close);
     return () => mq.removeEventListener("change", close);
   }, []);
+
+  useEffect(() => {
+    if (!menuOpen) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setMenuOpen(false);
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [menuOpen]);
 
   return (
     <header className="nav">
@@ -65,31 +75,7 @@ export function Header() {
         </div>
       </Reveal>
 
-      <nav
-        id="nav-mobile"
-        className={`nav-mobile${menuOpen ? " is-open" : ""}`}
-        aria-label="Mobile Navigation"
-        hidden={!menuOpen}
-      >
-        <ul>
-          {NAV_LINKS.map((link) => (
-            <li key={link.href}>
-              <Link href={link.href} onClick={() => setMenuOpen(false)}>
-                {link.label}
-              </Link>
-            </li>
-          ))}
-          <li className="nav-mobile__cta">
-            <Link
-              href="#kontakt"
-              className="btn btn-primary"
-              onClick={() => setMenuOpen(false)}
-            >
-              Beratung anfragen <span className="arrow">→</span>
-            </Link>
-          </li>
-        </ul>
-      </nav>
+      <MobileNav open={menuOpen} onClose={() => setMenuOpen(false)} />
     </header>
   );
 }
