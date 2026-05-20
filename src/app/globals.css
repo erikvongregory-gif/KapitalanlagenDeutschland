@@ -314,7 +314,7 @@ body.nav-open {
     gap: 4px;
   }
 
-  .nav-mobile a {
+  .nav-mobile a:not(.btn) {
     display: block;
     padding: 14px 0;
     font-size: 18px;
@@ -326,12 +326,28 @@ body.nav-open {
   .nav-mobile__cta {
     margin-top: 12px;
     padding-top: 8px;
+    border-bottom: none;
   }
 
   .nav-mobile__cta .btn {
+    display: inline-flex;
     width: 100%;
     justify-content: center;
     white-space: normal;
+    text-align: center;
+    padding: 16px 22px;
+    font-family: var(--sans);
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--accent-ink);
+    background: var(--accent);
+    border: none;
+    border-bottom: none;
+  }
+
+  .nav-mobile__cta .btn:hover {
+    background: var(--accent-soft);
+    color: var(--accent-ink);
   }
 
   .hero-grid {
