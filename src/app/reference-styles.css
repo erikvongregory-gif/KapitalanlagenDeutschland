@@ -756,7 +756,11 @@
     line-height: 0.98;
     letter-spacing: -0.018em;
   }
-  .cta h2 em { font-style: italic; opacity: 0.85; }
+  .cta h2 em {
+    font-style: italic;
+    color: var(--gold-soft, #d6c69a);
+    opacity: 1;
+  }
   .cta-meta {
     display: grid;
     gap: 22px;
